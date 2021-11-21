@@ -1,4 +1,1 @@
-from TextVersionPackage.Player import Player
-
-Sanya = Player()
-Sanya.play_game()
+from TextVersionPackage.Save_Load import load

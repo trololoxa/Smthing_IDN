@@ -1,7 +1,9 @@
 import time
 from TextVersionPackage.PC import PC
-
+#TODO: Day-Night cycle
 class Player:
+    #TODO: Gimme name
+    #TODO: Save-Load
     base_name = "Kamenshik"
 
     def __init__(self):
@@ -10,6 +12,7 @@ class Player:
         #TODO: Hunger
         #TODO: Sad
         #TODO: crminal
+
     def work(self):
         print("Choose work type(plz print number):")
         print("1) PC Freelance")
