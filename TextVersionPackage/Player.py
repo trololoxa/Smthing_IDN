@@ -1,14 +1,17 @@
 import time
 from TextVersionPackage.PC import PC
+
+
 #TODO: Day-Night cycle
 class Player:
     #TODO: Gimme name
     #TODO: Save-Load
     base_name = "Kamenshik"
 
-    def __init__(self):
-        self._money = 0
-        self.PC = PC()
+    def __init__(self, is_load=False, money=0, pc_tier=0, file_name='Placeholder.save'):
+        self._money = money
+        self.PC = PC(pc_tier)
+        self.file_name = file_name
         #TODO: Hunger
         #TODO: Sad
         #TODO: crminal
@@ -28,7 +31,7 @@ class Player:
                 elif command == 1:
                     time.sleep(0.1)
                     #TODO: Change Formula
-                    self._money += (3**(self.PC.strength**0.5)) if self.PC.strength < 0 else 0
+                    self._money += round((1.75**(self.PC.strength**0.5)) if self.PC.strength > 0 else 0)
                 else:
                     print("No")
                 #TODO: Hack Pentagon
@@ -42,8 +45,9 @@ class Player:
         while True:
             print("print:", end=" ")
             command = input().lower()
-            if command == "help":
+            if command == "help" or command == "0":
                 print("Available commands:")
+                print("\t0) Help")
                 print("\t1) Info")
                 print("\t2) Work")
                 print("\t3) Upgrade PC")
@@ -61,3 +65,4 @@ class Player:
                 break
             else:
                 print("Wrong command")
+        return [self.file_name, self._money, self.PC.tier]
