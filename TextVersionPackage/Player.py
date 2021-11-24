@@ -5,7 +5,7 @@ from TextVersionPackage.PC import PC
 #TODO: Day-Night cycle
 class Player:
     #TODO: Gimme name
-    #TODO: Save-Load
+    #TODO: Save-Load :Test and polishing
     base_name = "Kamenshik"
 
     def __init__(self, is_load=False, money=0, pc_tier=0, file_name='Placeholder.save'):
