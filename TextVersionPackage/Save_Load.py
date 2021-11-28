@@ -1,8 +1,11 @@
 from Player import Player
 import os
+import json
 #import hashlib
 
-save_folder = os.getcwd() + "\\..\\UrsinaEngine\\Saves\\"
+save_folder = os.getenv('APPDATA') + "\\..\\Kinda Hacker Game\\Saves\\"
+if not os.path.exists(save_folder):
+    os.makedirs(save_folder)
 save_files = os.listdir(save_folder)
 
 
@@ -10,10 +13,10 @@ def save(inp):
     money = inp[1]
     pc_tier = inp[2]
     #TODO: encrypt/decrypt save
-    with open(save_folder+inp[0], 'w') as sv:
-        sv.write(str(inp[1]))
-        sv.write("\n")
-        sv.write(str(inp[2]))
+    #TODO: Json save & load
+    with open(save_folder+inp[0], 'w') as json_file:
+        data = {'save': [{'money': inp[1], 'pc_tier': inp[2]}]}
+        json.dump(data, json_file)
 
 
 def load(is_new=True):

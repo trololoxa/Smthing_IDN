@@ -8,7 +8,7 @@ class Player:
     #TODO: Save-Load :Test and polishing
     base_name = "Kamenshik"
 
-    def __init__(self, is_load=False, money=0, pc_tier=0, file_name='Placeholder.save'):
+    def __init__(self, is_load=False, money=0, pc_tier=0, file_name='Placeholder.save', *args, **kwargs):
         self._money = money
         self.PC = PC(pc_tier)
         self.file_name = file_name
