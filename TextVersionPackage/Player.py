@@ -1,20 +1,25 @@
-import time
 from TextVersionPackage.PC import PC
 
 
-#TODO: Day-Night cycle
+#TODO: Day-Night cycle da
 class Player:
     #TODO: Gimme name
     #TODO: Save-Load :Test and polishing
     base_name = "Kamenshik"
 
-    def __init__(self, is_load=False, money=0, pc_tier=0, file_name='Placeholder.save', *args, **kwargs):
+    def __init__(self, money=0, pc_tier=0, file_name='Placeholder.save', hunger=100, game_time=None, *args, **kwargs):
+        if game_time is None:
+            game_time = {'days': 0, 'hours': 0}
         self._money = money
         self.PC = PC(pc_tier)
         self.file_name = file_name
-        #TODO: Hunger
+        self._hunger = hunger
+        self.game_time = game_time
+        #TODO: Hunger da
         #TODO: Sad
         #TODO: crminal
+        #TODO: Kalyannaya
+        #TODO: health of hunger
 
     def work(self):
         print("Choose work type(plz print number):")
@@ -25,19 +30,39 @@ class Player:
         while True:
             try:
                 command = int(input())
+                #TODO: Random Dead inside
                 if command == 2:
-                    time.sleep(0.5)
+                    self.add_time(12)
                     self._money += 1
+                    self.change_hunger(-25)
                 elif command == 1:
-                    time.sleep(0.1)
-                    #TODO: Change Formula
-                    self._money += round((1.75**(self.PC.strength**0.5)) if self.PC.strength > 0 else 0)
+                    if self.PC.strength > 0:
+                        self.add_time(8)
+                        self.change_hunger(-8)
+                        #TODO: Change Formula
+                        self._money += round(1.625**(self.PC.strength**0.5))
+                    else:
+                        print("U dont have pc")
                 else:
                     print("No")
                 #TODO: Hack Pentagon
                 break
             except ValueError:
                 print("NAN")
+
+    def add_time(self, hours):
+        self.game_time['hours'] += hours
+        while self.game_time['hours'] >= 24:
+            self.game_time['hours'] -= 24
+            self.game_time['days'] += 1
+
+    def change_hunger(self, hunger):
+        self._hunger += hunger
+        if self._hunger > 100:
+            self._hunger = 100
+        elif self._hunger <= 0:
+            print('U ded inside')
+            self._hunger = 0
 
     def play_game(self):
         print("U r gamer")
@@ -51,18 +76,28 @@ class Player:
                 print("\t1) Info")
                 print("\t2) Work")
                 print("\t3) Upgrade PC")
-                print("\t4) Exit")
+                print("\t4) Sleep")
+                print("\t5) Eat")
+                print("\t6) Exit")
             elif command == "info" or command == "1":
                 print(f"Name = {self.base_name}")
                 print(f"Money = {self._money}")
                 print(f"PC = {self.PC.tiers[self.PC.tier]}")
+                print(f"hunger = {self._hunger}")
+                print(f"Time:\n\t Days = {self.game_time['days']}\n\t Hours = {self.game_time['hours']}")
             elif command == "work" or command == "2":
                 self.work()
             elif command == "upgrade pc" or command == "3":
                 self._money -= self.PC.upgrade(self._money)
-            elif command == "exit" or command == "4":
+            elif command == "sleep" or command == "4":
+                self.add_time(8)
+                print('U slept in a wall')
+            elif command == "eat" or command == "5":
+                self.change_hunger(20)
+                print('U ate 1 kilo of grass')
+            elif command == "exit" or command == "6":
                 print("glhf")
                 break
             else:
                 print("Wrong command")
-        return [self.file_name, self._money, self.PC.tier]
+        return [self.file_name, self._money, self.PC.tier, self._hunger, self.game_time]

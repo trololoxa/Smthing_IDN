@@ -3,19 +3,17 @@ import os
 import json
 # import hashlib
 
-save_folder = os.getenv('APPDATA') + "\\..\\Kinda Hacker Game\\Saves\\"
+save_folder = os.getenv('APPDATA') + "\\Kinda Hacker Game\\Saves\\"
 if not os.path.exists(save_folder):
     os.makedirs(save_folder)
 save_files = os.listdir(save_folder)
 
 
-# TODO: Test Json save & load
+# TODO: Gimme name
 def save(inp):
-    money = inp[1]
-    pc_tier = inp[2]
     # TODO: encrypt/decrypt save
     with open(save_folder + inp[0], 'w') as json_file:
-        data = {'save': [{'savelen': 2, 'money': inp[1], 'pc_tier': inp[2]}]}
+        data = {'save': [{'money': inp[1], 'pc_tier': inp[2], 'hunger': inp[3], 'game_time': inp[4]}]}
         json.dump(data, json_file)
 
 
@@ -53,11 +51,13 @@ def load_file(file_loc, file_name):
         with open(file_loc, 'r') as file:
             ld = json.load(file)
             savedata = ld['save'][0]
-            if savedata['savelen'] != 2:
+            if len(savedata) != 4:
                 print('Old save file format')
                 exit(-1)
             money = savedata['money']
             pc_tier = savedata['pc_tier']
+            hunger = savedata['hunger']
+            game_time = savedata['game_time']
     except KeyError:
         print('Incorrect save file format1')
         raise exit(-1)
@@ -65,5 +65,5 @@ def load_file(file_loc, file_name):
         print('Incorrect save file format2')
         raise exit(-1)
     # TODO: Send save file name
-    Sanya = Player(money=money, pc_tier=pc_tier)
+    Sanya = Player(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time)
     save(Sanya.play_game())

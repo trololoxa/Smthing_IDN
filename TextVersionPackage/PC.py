@@ -1,4 +1,5 @@
 class PC:
+    part_tiers = {1: {}}
     tiers = {
         0: "not PC", 1: "Potato Pc", 2: "Bad Pc", 3: "Not Bad PC",
         4: "PC", 5: "Gut PC", 6: "Quantum Pc", 7: "Black PC"
