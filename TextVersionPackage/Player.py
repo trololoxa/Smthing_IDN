@@ -1,13 +1,13 @@
 from TextVersionPackage.PC import PC
 
 
-#TODO: Day-Night cycle da
+# TODO: Day-Night cycle da
 class Player:
-    #TODO: Gimme name
-    #TODO: Save-Load :Test and polishing
+    # TODO: Gimme name
+    # TODO: Save-Load :Test and polishing
     base_name = "Kamenshik"
 
-    def __init__(self, money=0, pc_tier=0, file_name='Placeholder.save', hunger=100, game_time=None, *args, **kwargs):
+    def __init__(self, money=0, pc_tier=0, file_name='Placeholder.save', hunger=100, game_time=None, cheerfulness=100):
         if game_time is None:
             game_time = {'days': 0, 'hours': 0}
         self._money = money
@@ -15,37 +15,42 @@ class Player:
         self.file_name = file_name
         self._hunger = hunger
         self.game_time = game_time
-        #TODO: Hunger da
-        #TODO: Sad
-        #TODO: crminal
-        #TODO: Kalyannaya
-        #TODO: health of hunger
+        self._cheerfulness = cheerfulness
+        # TODO: Hunger da
+        # TODO: Sad
+        # TODO: crminal
+        # TODO: Kalyannaya
+        # TODO: health of hunger
 
     def work(self):
         print("Choose work type(plz print number):")
         print("1) PC Freelance")
-        #TODO: Skill lvl
+        # TODO: Skill lvl
         print("2) Street cleaner")
-        #TODO: Car cleaner
+        # TODO: Car cleaner
         while True:
             try:
                 command = int(input())
-                #TODO: Random Dead inside
+                # TODO: Random Dead inside
                 if command == 2:
+                    if not self.change_cheerfulness(-36):
+                        break
                     self.add_time(12)
                     self._money += 1
                     self.change_hunger(-25)
                 elif command == 1:
                     if self.PC.strength > 0:
+                        if not self.change_cheerfulness(-24):
+                            break
                         self.add_time(8)
                         self.change_hunger(-8)
-                        #TODO: Change Formula
-                        self._money += round(1.625**(self.PC.strength**0.5))
+                        # TODO: Change Formula
+                        self._money += round(1.625 ** (self.PC.strength ** 0.5))
                     else:
                         print("U dont have pc")
                 else:
                     print("No")
-                #TODO: Hack Pentagon
+                # TODO: Hack Pentagon
                 break
             except ValueError:
                 print("NAN")
@@ -63,6 +68,15 @@ class Player:
         elif self._hunger <= 0:
             print('U ded inside')
             self._hunger = 0
+
+    def change_cheerfulness(self, cheerfulness):
+        if self._cheerfulness == 0:
+            print("U rly want to sleep")
+            return False
+        if self._cheerfulness + cheerfulness <= 0:
+            self._cheerfulness = 0
+        self._cheerfulness += cheerfulness
+        return True
 
     def play_game(self):
         print("U r gamer")
@@ -84,6 +98,7 @@ class Player:
                 print(f"Money = {self._money}")
                 print(f"PC = {self.PC.tiers[self.PC.tier]}")
                 print(f"hunger = {self._hunger}")
+                print(f"Cheerfulness = {self._cheerfulness}")
                 print(f"Time:\n\t Days = {self.game_time['days']}\n\t Hours = {self.game_time['hours']}")
             elif command == "work" or command == "2":
                 self.work()
@@ -91,13 +106,15 @@ class Player:
                 self._money -= self.PC.upgrade(self._money)
             elif command == "sleep" or command == "4":
                 self.add_time(8)
+                self._cheerfulness = 100
                 print('U slept in a wall')
             elif command == "eat" or command == "5":
                 self.change_hunger(20)
+                self._cheerfulness -= 10
                 print('U ate 1 kilo of grass')
             elif command == "exit" or command == "6":
                 print("glhf")
                 break
             else:
                 print("Wrong command")
-        return [self.file_name, self._money, self.PC.tier, self._hunger, self.game_time]
+        return [self.file_name, self._money, self.PC.tier, self._hunger, self.game_time, self._cheerfulness]

@@ -13,7 +13,7 @@ save_files = os.listdir(save_folder)
 def save(inp):
     # TODO: encrypt/decrypt save
     with open(save_folder + inp[0], 'w') as json_file:
-        data = {'save': [{'money': inp[1], 'pc_tier': inp[2], 'hunger': inp[3], 'game_time': inp[4]}]}
+        data = {'save': [{'money': inp[1], 'pc_tier': inp[2], 'hunger': inp[3], 'game_time': inp[4], 'cheerfulness': inp[5]}]}
         json.dump(data, json_file)
 
 
@@ -51,13 +51,14 @@ def load_file(file_loc, file_name):
         with open(file_loc, 'r') as file:
             ld = json.load(file)
             savedata = ld['save'][0]
-            if len(savedata) != 4:
+            if len(savedata) != 5:
                 print('Old save file format')
                 exit(-1)
             money = savedata['money']
             pc_tier = savedata['pc_tier']
             hunger = savedata['hunger']
             game_time = savedata['game_time']
+            cheerfulness = savedata['cheerfulness']
     except KeyError:
         print('Incorrect save file format1')
         raise exit(-1)
@@ -65,5 +66,5 @@ def load_file(file_loc, file_name):
         print('Incorrect save file format2')
         raise exit(-1)
     # TODO: Send save file name
-    Sanya = Player(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time)
+    Sanya = Player(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time, cheerfulness=cheerfulness)
     save(Sanya.play_game())
