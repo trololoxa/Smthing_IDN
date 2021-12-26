@@ -27,16 +27,7 @@ application.development_mode = False
 
 init_scenes()
 """
-class Option(Button):
-  def __init__(self):
-    super().__init__(
-      model = 'circle',
-      texture = 'brick',
-      color = color.blue,
-      scale = 0.3)
 
-  def on_click():
-    doSomething()
 """
 """
 wp = WindowPanel(
