@@ -1,4 +1,4 @@
-from TextVersionPackage.Save_Load import load
+# from TextVersionPackage.Save_Load import load
 
 
 def main():
@@ -9,10 +9,10 @@ def main():
     while True:
         inp = int(input())
         if inp == 1:
-            load()
+            # load()
             break
         elif inp == 2:
-            load(False)
+            # load(False)
             break
         print("Wrong input")
         print("Plz, print number between 1 and 2")

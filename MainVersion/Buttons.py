@@ -8,7 +8,5 @@ class SceneButton(Button):
         self.next_scene = next_scene
 
     def on_click(self):
-        for i in self.current_scene:
-            i.disable()
-        for i in self.next_scene:
-            i.enable()
+        self.current_scene.disable_scene()
+        self.next_scene.enable_scene()
