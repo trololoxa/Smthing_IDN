@@ -1,57 +1,53 @@
-from MainVersion.Buttons import SceneButton
 from ursina import application, color, Button
-
-class Scene:
-    def __init__(self, scene=None):
-        if scene is None:
-            scene = []
-        self.scene = scene
-
-    def disable_scene(self):
-        for i in self.scene:
-            i.disable()
-
-    def enable_scene(self):
-        for i in self.scene:
-            i.enable()
-
-    def on_click(self):
-        self.current_scene.disable_scene()
-        self.next_scene.enable_scene()
+from MainVersion.Save_load import load
 
 
-LoadScene = [Scene()]
-MainScene = [Scene()]
-CurrentScene = LoadScene
+def disableScene(inputScene):
+    for i in inputScene:
+        i.disable()
+def enableScene(inputScene):
+    for i in inputScene:
+        i.enable()
+def ln2m():
+    disableScene(LoadScene)
+    load()
+    enableScene(MainScene)
+def ll2cf():
+    disableScene(LoadScene)
+    enableScene(ChooseFileScene)
+def cf2m():
+    disableScene(ChooseFileScene)
+    load(false)
+    enableScene(MainScene)
 
-LoadScene[0] = Scene([
-        SceneButton(
+
+LoadScene = [
+        Button(
             text='New game',
             color=color.black,
             scale=(.25, .12, .25),
-            next_scene=MainScene[0],
-            current_scene=CurrentScene[0],
-            position=(-0.75, 0.43, 0)),
-        SceneButton(
+            position=(-0.75, 0.43, 0),
+            on_click=ln2m),
+        Button(
             text='Load game',
             color=color.black,
             scale=(.25, .12, .25),
-            next_scene=MainScene[0],
-            current_scene=CurrentScene[0],
-            position=(-0.75, 0.305, 0)),
+            position=(-0.75, 0.305, 0),
+            on_click=ll2cf),
         Button(
             text='Exit',
             color=color.black,
             scale=(.25, .12, .25),
             position=(-0.75, 0.18, 0),
             on_click=application.quit)
-    ])
-MainScene[0] = Scene([Button(
+    ]
+ChooseFileScene = []
+disableScene(ChooseFileScene)
+MainScene = [Button(
             text='Nooooo(((',
             color=color.black,
             scale=(.25, .12, .25),
-            position=(-0.75, 0.18, 0),
-            on_click=application.quit)])
-MainScene[0].disable_scene()
-CurrentScene = LoadScene
+            position=(-0.75, 0.43, 0),
+            on_click=application.quit)]
+disableScene(MainScene)
 

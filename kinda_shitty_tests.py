@@ -1,10 +1,10 @@
 class Idn:
     def __init__(self, n, c=0):
-        self.n = n
-        self.c = c
+        self.n = [n]
+        self.c = [c]
 
     def ch(self, c):
-        self.c = c
+        self.c[0] = c
 
     def prnt(self):
         print('id =', id(self))

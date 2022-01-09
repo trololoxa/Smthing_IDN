@@ -18,8 +18,6 @@ def save(inp):
 
 
 def load(is_new=True):
-    # TODO: cls
-    # os.system("cls")
     if is_new:
         Sanya = Player()
         save(Sanya.play_game())
