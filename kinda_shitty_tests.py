@@ -1,25 +1,15 @@
-class Idn:
-    def __init__(self, n, c=0):
-        self.n = [n]
-        self.c = [c]
+from ursina import *
+from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
 
-    def ch(self, c):
-        self.c[0] = c
+app = Ursina()
+window.borderless = False
+files = []
+for i in range(len()):
+    files.append(DropdownMenuButton('a' + str(i)))
+a = 0
 
-    def prnt(self):
-        print('id =', id(self))
-        print('c id =', id(self.c))
-        print('n id =', id(self.n))
-        print()
-        print('c =', self.c)
-        print('n =', self.n)
-        print('\n')
+def update():
+    print(a)
 
-
-a = Idn(1, 2)
-b=a
-a.prnt()
-b.prnt()
-b.ch(5)
-b.prnt()
+app.run()
 

@@ -17,30 +17,12 @@ def save(inp):
         json.dump(data, json_file)
 
 
-def load(is_new=True):
+def load(is_new=True, choose_file=''):
     if is_new:
         Sanya = Player()
         save(Sanya.play_game())
     else:
-        print("Plz choose save file")
-        for i in range(len(save_files)):
-            print(str(i + 1) + ") " + save_files[i])
-        while True:
-            # TODO: Lowercase
-            print("print:", end=" ")
-            command = input()
-            try:
-                if command in save_files:
-                    loadfile = command
-                    break
-                elif len(save_files) >= int(command) > 0:
-                    loadfile = save_files[int(command) - 1]
-                    break
-                else:
-                    print("Wrong input")
-            except ValueError:
-                print("plz input number or name of savefile u want load")
-        load_file(save_folder + loadfile, loadfile)
+        load_file(save_folder + choose_file, choose_file)
 
 
 # TODO: name save files
@@ -58,10 +40,10 @@ def load_file(file_loc, file_name):
             game_time = savedata['game_time']
             cheerfulness = savedata['cheerfulness']
     except KeyError:
-        print('Incorrect save file format1')
+        print('Incorrect save file format')
         raise exit(-1)
     except json.decoder.JSONDecodeError:
-        print('Incorrect save file format2')
+        print('Incorrect save file format')
         raise exit(-1)
     # TODO: Send save file name
     Sanya = Player(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time, cheerfulness=cheerfulness)

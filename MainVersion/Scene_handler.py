@@ -1,4 +1,7 @@
 from ursina import application, color, Button
+from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
+
+import Save_load
 from MainVersion.Save_load import load
 
 
@@ -17,7 +20,6 @@ def ll2cf():
     enableScene(ChooseFileScene)
 def cf2m():
     disableScene(ChooseFileScene)
-    load(false)
     enableScene(MainScene)
 
 
@@ -41,7 +43,18 @@ LoadScene = [
             position=(-0.75, 0.18, 0),
             on_click=application.quit)
     ]
-ChooseFileScene = []
+class FileChooseButton(DropdownMenuButton):
+    def __init__(self, text='', **kwargs):
+        super().__init__(text, **kwargs)
+
+    def on_click(self):
+        load(False, self.text)
+files = []
+for i in range(len(Save_load.save_files)):
+    files.append(FileChooseButton(Save_load.save_files[i]))
+ChooseFileScene = [DropdownMenu('File', buttons=(
+    files
+    ))]
 disableScene(ChooseFileScene)
 MainScene = [Button(
             text='Nooooo(((',
