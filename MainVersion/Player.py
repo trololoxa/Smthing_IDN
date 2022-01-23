@@ -22,38 +22,30 @@ class Player:
         # TODO: Kalyannaya
         # TODO: health of hunger
 
+    def return_save_data(self):
+        return [self.file_name, self._money, self.PC.tier, self._hunger, self.game_time, self._cheerfulness]
+
     def work(self, worknum):
-        print("Choose work type(plz print number):")
-        print("1) PC Freelance")
         # TODO: Skill lvl
-        print("2) Street cleaner")
         # TODO: Car cleaner
-        while True:
-            try:
-                command = int(input())
-                # TODO: Random Dead inside
-                if command == 2:
-                    if not self.change_cheerfulness(-36):
-                        break
-                    self.add_time(12)
-                    self._money += 1
-                    self.change_hunger(-25)
-                elif command == 1:
-                    if self.PC.strength > 0:
-                        if not self.change_cheerfulness(-24):
-                            break
-                        self.add_time(8)
-                        self.change_hunger(-8)
-                        # TODO: Change Formula
-                        self._money += round(1.625 ** (self.PC.strength ** 0.5))
-                    else:
-                        print("U dont have pc")
-                else:
-                    print("No")
-                # TODO: Hack Pentagon
-                break
-            except ValueError:
-                print("NAN")
+        # TODO: Random Dead inside
+        #Street cleaner
+        if worknum == 2:
+            if not self.change_cheerfulness(-36):
+                return 0
+            self.add_time(12)
+            self._money += 1
+            self.change_hunger(-25)
+        #PC Freelance
+        elif worknum == 1:
+            if self.PC.strength > 0:
+                if not self.change_cheerfulness(-24):
+                    return 0
+                self.add_time(8)
+                self.change_hunger(-8)
+                # TODO: Change Formula
+                self._money += round(1.625 ** (self.PC.strength ** 0.5))
+        # TODO: Hack Pentagon
 
     def add_time(self, hours):
         self.game_time['hours'] += hours
@@ -78,7 +70,7 @@ class Player:
         self._cheerfulness += cheerfulness
         return True
 
-    def play_game(self):
+    """def play_game(self):
         print("U r gamer")
         print("U shud print commands")
         while True:
@@ -117,4 +109,4 @@ class Player:
                 break
             else:
                 print("Wrong command")
-        return [self.file_name, self._money, self.PC.tier, self._hunger, self.game_time, self._cheerfulness]
+        """

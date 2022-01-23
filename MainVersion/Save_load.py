@@ -3,6 +3,7 @@ import os
 import json
 # import hashlib
 
+player = Player()
 save_folder = os.getenv('APPDATA') + "\\Kinda Hacker Game\\Saves\\"
 if not os.path.exists(save_folder):
     os.makedirs(save_folder)
@@ -18,10 +19,7 @@ def save(inp):
 
 
 def load(is_new=True, choose_file=''):
-    if is_new:
-        Sanya = Player()
-        save(Sanya.play_game())
-    else:
+    if not is_new:
         load_file(save_folder + choose_file, choose_file)
 
 
@@ -46,5 +44,4 @@ def load_file(file_loc, file_name):
         print('Incorrect save file format')
         raise exit(-1)
     # TODO: Send save file name
-    Sanya = Player(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time, cheerfulness=cheerfulness)
-    save(Sanya.play_game())
+    player.__init__(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time, cheerfulness=cheerfulness)

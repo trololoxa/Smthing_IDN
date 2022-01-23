@@ -12,13 +12,9 @@ class PC:
 
     def upgrade(self, my_money):
         if self.tier >= 7:
-            print("U have max tier")
             return 0
         elif my_money < self.tier_price[self.tier+1]:
-            print("Not enough money")
-            print("U need " + str(self.tier_price[self.tier+1] - my_money) + " more money")
             return 0
         self.tier += 1
-        print("Ur PC upgraded to " + self.tiers[self.tier])
         self.strength = 3 ** self.tier
         return self.tier_price[self.tier]
