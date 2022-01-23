@@ -22,7 +22,7 @@ class Player:
         # TODO: Kalyannaya
         # TODO: health of hunger
 
-    def work(self):
+    def work(self, worknum):
         print("Choose work type(plz print number):")
         print("1) PC Freelance")
         # TODO: Skill lvl
