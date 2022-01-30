@@ -1,4 +1,3 @@
-#TODO: Start transfer game to Ursina(or smthing idn)
 from ursina import *
 
 app = Ursina()

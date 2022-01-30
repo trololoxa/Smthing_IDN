@@ -1,13 +1,19 @@
 from ursina import *
 from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
 
-app = Ursina()
-window.borderless = False
+class a:
+    def __init__(self, a, **kwargs):
+        self.a = a
+        self.kwargs = kwargs
 
-a = 0
+    def print_a(self):
+        print(self.a)
 
-def update():
-    print(a)
+    def print_kwargs(self):
+        print(self.kwargs)
+        for key, value in self.kwargs.items():
+            print(key, value)
 
-app.run()
-
+aa = a(a=6, b=5, c='a')
+aa.print_a()
+aa.print_kwargs()

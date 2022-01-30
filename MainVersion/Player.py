@@ -1,12 +1,7 @@
 from MainVersion.PC import PC
 
 
-# TODO: Day-Night cycle da
 class Player:
-    # TODO: Gimme name
-    # TODO: Save-Load :Test and polishing
-    base_name = "Kamenshik"
-
     def __init__(self, money=0, pc_tier=0, file_name='Placeholder.save', hunger=100, game_time=None, cheerfulness=100):
         if game_time is None:
             game_time = {'days': 0, 'hours': 0}
@@ -16,6 +11,9 @@ class Player:
         self._hunger = hunger
         self.game_time = game_time
         self._cheerfulness = cheerfulness
+        self._sad = 0
+        self._health = 100
+        self._skill = 0
         # TODO: Hunger da
         # TODO: Sad
         # TODO: crminal
@@ -45,6 +43,12 @@ class Player:
                 self.change_hunger(-8)
                 # TODO: Change Formula
                 self._money += round(1.625 ** (self.PC.strength ** 0.5))
+        elif worknum == 3:
+            if not self.change_cheerfulness(-24):
+                return 0
+            self.add_time(9)
+            self._money += 2
+            self.change_hunger(-30)
         # TODO: Hack Pentagon
 
     def add_time(self, hours):
@@ -70,43 +74,13 @@ class Player:
         self._cheerfulness += cheerfulness
         return True
 
-    """def play_game(self):
-        print("U r gamer")
-        print("U shud print commands")
-        while True:
-            print("print:", end=" ")
-            command = input().lower()
-            if command == "help" or command == "0":
-                print("Available commands:")
-                print("\t0) Help")
-                print("\t1) Info")
-                print("\t2) Work")
-                print("\t3) Upgrade PC")
-                print("\t4) Sleep")
-                print("\t5) Eat")
-                print("\t6) Exit")
-            elif command == "info" or command == "1":
-                print(f"Name = {self.base_name}")
-                print(f"Money = {self._money}")
-                print(f"PC = {self.PC.tiers[self.PC.tier]}")
-                print(f"hunger = {self._hunger}")
-                print(f"Cheerfulness = {self._cheerfulness}")
-                print(f"Time:\n\t Days = {self.game_time['days']}\n\t Hours = {self.game_time['hours']}")
-            elif command == "work" or command == "2":
-                self.work()
-            elif command == "upgrade pc" or command == "3":
-                self._money -= self.PC.upgrade(self._money)
-            elif command == "sleep" or command == "4":
-                self.add_time(8)
-                self._cheerfulness = 100
-                print('U slept in a wall')
-            elif command == "eat" or command == "5":
-                self.change_hunger(20)
-                self._cheerfulness -= 10
-                print('U ate 1 kilo of grass')
-            elif command == "exit" or command == "6":
-                print("glhf")
-                break
-            else:
-                print("Wrong command")
-        """
+    def upgrade_pc(self):
+        self._money -= self.PC.upgrade(self._money)
+
+    def sleep(self):
+        self.add_time(8)
+        self._cheerfulness = 100
+
+    def eat(self):
+        self.change_hunger(20)
+        self._cheerfulness -= 10
