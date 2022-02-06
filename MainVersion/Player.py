@@ -82,5 +82,6 @@ class Player:
         self._cheerfulness = 100
 
     def eat(self):
+        if not self.change_cheerfulness(-10):
+            return 0
         self.change_hunger(20)
-        self._cheerfulness -= 10

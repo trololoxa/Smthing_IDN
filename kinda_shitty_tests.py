@@ -1,19 +1,15 @@
 from ursina import *
-from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
 
-class a:
-    def __init__(self, a, **kwargs):
-        self.a = a
-        self.kwargs = kwargs
+app = Ursina()
+a = InputField()
+def update():
+    print(a.text)
+window.title = 'My Gay'
+window.borderless = False
+window.forced_aspect_ratio = (16, 9)
+window.windowed_size = (1280, 720)
+window.exit_button.visible = False
+window.fps_counter.enabled = False
+application.development_mode = False
 
-    def print_a(self):
-        print(self.a)
-
-    def print_kwargs(self):
-        print(self.kwargs)
-        for key, value in self.kwargs.items():
-            print(key, value)
-
-aa = a(a=6, b=5, c='a')
-aa.print_a()
-aa.print_kwargs()
+app.run()

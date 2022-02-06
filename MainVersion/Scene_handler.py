@@ -1,4 +1,4 @@
-from ursina import application, color, Button, Text
+from ursina import application, color, Button, Text, InputField
 from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
 
 import Save_load
@@ -6,9 +6,12 @@ from MainVersion.scene_thingies import *
 import MainVersion.Save_load
 from MainVersion.Save_load import load, save
 
-def ln2m():
+def ln2nf():
     disableScene(LoadScene)
-    load()
+    enableScene(SaveNameScene)
+def nf2m():
+    Save_load.player.file_name = SaveNameScene[0].text
+    disableScene(SaveNameScene)
     enableScene(MainScene)
     updateinfo()
     enableScene(MainInfo)
@@ -29,7 +32,7 @@ def w2m():
 def m2l():
     disableScene(MainScene)
     disableScene(MainInfo)
-    save(player.return_save_data())
+    save(Save_load.player.return_save_data())
     enableScene(LoadScene)
 def wok1():
     Save_load.player.work(1)
@@ -64,6 +67,8 @@ class FileChooseButton(DropdownMenuButton):
 
     def on_click(self):
         load(False, self.text)
+        print(self.text)
+        print(Save_load.player.return_save_data())
         cf2m()
 
 LoadScene = [
@@ -72,7 +77,7 @@ LoadScene = [
         color=color.black,
         scale=(.25, .12, .25),
         position=(-0.75, 0.43, 0),
-        on_click=ln2m),
+        on_click=ln2nf),
     Button(
         text='Load game',
         color=color.black,
@@ -184,8 +189,17 @@ WorkScene = [
         color=color.black,
         scale=(.25, .12, .25),
         position=(-0.75, 0.055, 0),
-        on_click=w2m),
-
+        on_click=w2m)
 ]
 disableScene(WorkScene)
+SaveNameScene = [
+    InputField(),
+    Button(
+        text='Load',
+        color=color.black,
+        scale=(.25, .05, .25),
+        position=(0.379, 0, 0),
+        on_click=nf2m)
+]
+disableScene(SaveNameScene)
 

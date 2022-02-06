@@ -20,13 +20,13 @@ def save(inp):
 
 def load(is_new=True, choose_file=''):
     if not is_new:
-        load_file(save_folder + choose_file, choose_file)
+        load_file(save_folder, choose_file)
 
 
 # TODO: name save files
 def load_file(file_loc, file_name):
     try:
-        with open(file_loc, 'r') as file:
+        with open(file_loc + file_name, 'r') as file:
             ld = json.load(file)
             savedata = ld['save'][0]
             if len(savedata) != 5:
@@ -44,4 +44,4 @@ def load_file(file_loc, file_name):
         print('Incorrect save file format')
         raise exit(-1)
     # TODO: Send save file name
-    player.__init__(money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time, cheerfulness=cheerfulness)
+    player.__init__(file_name=file_name, money=money, pc_tier=pc_tier, hunger=hunger, game_time=game_time, cheerfulness=cheerfulness)
