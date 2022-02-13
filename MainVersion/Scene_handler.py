@@ -78,6 +78,10 @@ LoadScene = [
         scale=(.25, .12, .25),
         position=(-0.75, 0.43, 0),
         on_click=ln2nf),
+    Image(
+        'Selfie\\Чёрнорабочий.jpg',
+        scale=(.5, .24, .5),
+        position=(-0.37, 0.3675, 0)),
     Button(
         text='Load game',
         color=color.black,
@@ -89,7 +93,11 @@ LoadScene = [
         color=color.black,
         scale=(.25, .12, .25),
         position=(-0.75, 0.18, 0),
-        on_click=application.quit)
+        on_click=application.quit),
+    Image(
+        'Selfie\\ГЕЙ ПАТИ.jpg',
+        scale=(.5, .12, .5),
+        position=(-0.37, 0.18, 0)),
 ]
 files = []
 for i in range(len(MainVersion.Save_load.save_files)):
